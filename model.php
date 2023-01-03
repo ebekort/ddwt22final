@@ -111,3 +111,11 @@ function get_navigation($template, $active_id){
     </nav>';
     return $navigation_exp;
 }
+
+function check_login(){
+    if (isset($_SESSION['user_id'])){
+        return True;
+    } else {
+        return False;
+    }
+}

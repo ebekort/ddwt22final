@@ -2,6 +2,7 @@
 
 include 'model.php';
 
+
 /* connect to database */
 $db = connect_db('localhost', 'ddwt22_final', 'ddwt22', 'ddwt22');
 
@@ -46,7 +47,8 @@ if (new_route('/final/rooms/', 'get')) {
     /* page info */
     $page_title = 'student rooms';
     $breadcrumbs = get_breadcrumbs([
-        'Home' => na('/final/', True)
+        'Home' => na('/final/', False),
+        'Rooms' => na('/final/rooms/', True)
     ]);
     $navigation = get_navigation($template, 2);
     $page_subtitle = 'overview of all rooms';
@@ -60,7 +62,7 @@ if (new_route('/final/myaccount', 'get')) {
     /* page info */
     $page_title = 'student rooms';
     $breadcrumbs = get_breadcrumbs([
-        'Home' => na('/DDWT22/week2/', True)
+        'Home' => na('/DDWT22/week2/', False)
     ]);
     $navigation = get_navigation($template, 3);
     $page_subtitle = 'myaccount';
@@ -94,3 +96,22 @@ if (new_route('/final/register', 'get')) {
 
     include use_template('main');
 }
+
+elseif (new_route('/final/login/', 'get')) {
+    /* check login */
+    if (check_login()) {
+        redirect('/final/myaccount/');
+    }
+    /* Page info */
+    $page_title = 'Login';
+    $navigation = get_navigation($template, 0);
+
+    /* Page content */
+    $page_subtitle = 'Login into the website';
+    if (isset($_GET['error_msg'])) {
+        $error_msg = get_error($_GET['error_msg']);
+    }
+
+    include use_template('login');
+}
+
